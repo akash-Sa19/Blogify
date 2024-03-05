@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>AkashSahu.io</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <h1>New Blog</h1>
+    <div class="container mt-3">
+      <form
+        action="/blog"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <input
+            type="file"
+            id="coverImage"
+            class="form-control"
+            aria-describedby="title"
+            name="coverImage"
+          />
+          <label
+            for="title"
+            class="form-label mt-3"
+            >Title</label
+          >
+          <input
+            type="text"
+            id="title"
+            class="form-control"
+            aria-describedby="title"
+            name="title"
+          />
+          <label
+            for="body"
+            class="form-label mt-3"
+            >Blog
+          </label>
+
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            id="body"
+            placeholder="Start writing your blog here"
+            name="body"
+          ></textarea>
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
