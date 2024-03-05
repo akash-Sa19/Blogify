@@ -4,6 +4,8 @@ const path = require("node:path");
 // other imports
 const userRouter = require("./routes/user");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const { checkForAuthenticationCookie } = require("./middleware/authentication");
 
 // express import and stuff
 const express = require("express");
@@ -21,11 +23,15 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(checkForAuthenticationCookie("token"));
 
 // routes
 app.use("/user", userRouter);
 app.get("/", (req, res) => {
-  return res.render("home");
+  return res.render("home", {
+    user: req.user,
+  });
 });
 
 // server port

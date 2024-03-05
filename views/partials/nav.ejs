@@ -32,14 +32,14 @@
             >Home</a
           >
         </li>
+        <% if (locals.user) { %>
         <li class="nav-item">
           <a
             class="nav-link"
-            href="#"
+            href="/blog/add-new"
             >Add Blog</a
           >
         </li>
-
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -47,34 +47,58 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
           >
             Akash Sahu
           </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                >Action</a
-              >
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                >Another action</a
-              >
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                href="#"
-                >Something else here</a
-              >
-            </li>
-          </ul>
+          <!-- <div
+            class="dropdown-menu"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <a
+              class="dropdown-item"
+              href="/user/logout"
+              >Logout</a
+            >
+          </div> -->
         </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="/user/logout"
+            >Logout</a
+          >
+        </li>
+        <% } else {%>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="/user/signup"
+            >Create Account</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="/user/signin"
+            >Signin</a
+          >
+        </li>
+        <% } %>
       </ul>
     </div>
   </div>
 </nav>
+
+<% if (locals.error) { %>
+<div class="container mt-4">
+  <div
+    class="alert alert-danger"
+    role="alert"
+  >
+    <%= locals.error %>
+  </div>
+</div>
+<% } %>

@@ -7,9 +7,18 @@ const router = Router();
 router.get("/signin", (req, res) => {
   return res.render("signin");
 });
-// login === signin
-router.post("/signin", (req, res) => {
+router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
+
+  try {
+    const token = await User.matchPasswordAndGenerateToken(email, password);
+    // console.log(token);
+    return res.cookie("token", token).redirect("/");
+  } catch (error) {
+    return res.render("signin", {
+      error: "incorrect Email or Password",
+    });
+  }
 });
 
 router.get("/signup", (req, res) => {
@@ -28,8 +37,12 @@ router.post("/signup", async (req, res) => {
       .catch((error) => console.log(error));
     return res.status(308).redirect("/");
   } catch (error) {
-    return res.status(400).json({ message: "router.post " + error });
+    return res.status(400).json({ message: "router.post " });
   }
+});
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("token").redirect("/");
 });
 
 module.exports = router;
